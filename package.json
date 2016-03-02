@@ -33,10 +33,6 @@
     "gulp-coveralls": "^0.1.0"
   },
   "eslintConfig": {
-    "extends": "xo-space",
-    "env": {
-      "mocha": true
-    }
   },
   "repository": "UniversalAvenue/generator-avenue",
   "scripts": {
