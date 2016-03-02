@@ -1,7 +1,15 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
+var askName = require('inquirer-npm-name');
 var yosay = require('yosay');
+var _ = require('lodash');
+
+function makeLibraryName(name) {
+  name = _.kebabCase(name);
+  name = name.indexOf('generator-') === 0 ? name : 'generator-' + name;
+  return name;
+}
 
 module.exports = yeoman.generators.Base.extend({
   prompting: function () {
@@ -12,12 +20,18 @@ module.exports = yeoman.generators.Base.extend({
       'Welcome to the super-excellent ' + chalk.red('generator-avenue') + ' generator!'
     ));
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+    askName({
+      name: 'name',
+      message: 'Your lib name',
+      default: makeLibraryName(path.basename(process.cwd())),
+      filter: makeLibraryName,
+      validate: function (str) {
+        return str.length > 0;
+      }
+    }, this, function (name) {
+      this.props.name = name;
+      done();
+    }.bind(this));
 
     this.prompt(prompts, function (props) {
       this.props = props;
