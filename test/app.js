@@ -13,7 +13,8 @@ describe('generator-avenue:app', function () {
 
   it('creates files', function () {
     assert.file([
-      'dummyfile.txt'
+      'webpack.config.js',
+      'src/index.js',
     ]);
   });
 });

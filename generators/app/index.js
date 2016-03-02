@@ -27,11 +27,19 @@ module.exports = yeoman.generators.Base.extend({
     }.bind(this));
   },
 
-  writing: function () {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
+  writing: {
+    webpack: function () {
+      this.fs.copy(
+        this.templatePath('webpack.config.js'),
+        this.destinationPath('webpack.config.js')
+      );
+    },
+    indexJs: function () {
+      this.fs.copy(
+        this.templatePath('index.js'),
+        this.destinationPath('src/index.js')
+      );
+    },
   },
 
   install: function () {
